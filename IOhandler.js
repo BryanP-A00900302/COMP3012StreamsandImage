@@ -8,10 +8,11 @@
  * 
  */
 
-const unzipper = require('unzipper'),
-  fs = require("fs"),
-  PNG = require('pngjs').PNG,
-  path = require('path');
+const unzipper = require('unzipper').promise,
+  fs = require("fs").promise;
+  const { createReadStream, createWriteStream } = require("fs"),
+  PNG = require('pngjs').PNG.promise,
+  path = require('path').promise;
 
 
 /**
@@ -22,6 +23,7 @@ const unzipper = require('unzipper'),
  * @return {promise}
  */
 const unzip = (pathIn, pathOut) => {
+fs.createReadStream(pathIn).pipe(unzipper.Extract({path:pathOut})).promise().then(()=> console.log('done'),e => console.log('erroe',e)).autodrain();
 
 };
 
@@ -32,7 +34,9 @@ const unzip = (pathIn, pathOut) => {
  * @return {promise}
  */
 const readDir = dir => {
-
+fs.readDir(dir,function(err,images){
+  const pngImages = images.filter(png => path.extname(png) === ".png")
+return new Promise((resolve,reject) =>{})})
 };
 
 /**
