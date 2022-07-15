@@ -24,7 +24,7 @@ const unzipper = require('unzipper').promise,
  */
 const unzip = (pathIn, pathOut) => {
 
-  fs.createReadStream(pathIn).pipe(unzipper.Extract({path:pathOut})).promise().then(()=> console.log('done'),e => console.log('erroe',e)).autodrain();
+  createReadStream(pathIn).pipe(unzipper.Extract({path:pathOut})).promise().then(()=> console.log('done'),e => console.log('error',e));
 
 };
 
@@ -56,7 +56,7 @@ const readDir = dir => {
  */
 const grayScale = (pathIn, pathOut) => {
 
-  fs.createReadStream(pathIn)
+  createReadStream(pathIn)
   .pipe(
     new PNG({
       filterType: 4,
@@ -77,7 +77,7 @@ const grayScale = (pathIn, pathOut) => {
       }
     }
 
-    this.pack().pipe(fs.createWriteStream(pathOut));
+    this.pack().pipe(createWriteStream(pathOut));
   });
 
 };
